@@ -127,24 +127,21 @@ struct Node
 vector <int> postOrder(Node* root)
 {
   // Your code here
+  stack<Node*> st;
   vector<int> ans;
-  if(root==NULL) return ans;
   
-  stack<Node*> s1,s2;
-  s1.push(root);
-  while(!s1.empty()){
-      root = s1.top();
-      s1.pop();
-      s2.push(root);
-      if(root->left!= NULL)
-        s1.push(root->left);
-      if(root->right!= NULL)
-        s1.push(root->right);
+  if(root == NULL) return ans;
+  
+  st.push(root);
+  while(!st.empty()){
+      Node* temp = st.top();
+      ans.push_back(temp->data);
+      st.pop();
+      if(temp->left!=NULL) st.push(temp->left);
+      if(temp->right!=NULL) st.push(temp->right);
   }
   
-  while(!s2.empty()){
-      ans.push_back(s2.top()->data);
-      s2.pop();
-  }
+  reverse(ans.begin(),ans.end());
   return ans;
+  
 }
